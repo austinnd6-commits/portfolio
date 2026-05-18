@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nnamdi Uzoewulu — GTM Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ed;
+    --accent: #00e5a0;
+    --accent-dim: #00b37d;
+    --gray: #888;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: rgba(255,255,255,0.04);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    padding: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    padding: 7rem 0 5rem;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.3);
+    border-radius: 100px;
+    padding: 6px 14px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 .name { display: block; color: var(--white); }
+  .hero h1 .title { display: block; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--gray);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-sub strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.1s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 4rem 0;
+  }
+
+  .stat {
+    background: var(--black);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTION */
+  section { padding: 5rem 0; border-top: 1px solid var(--border); }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--gray);
+    font-weight: 300;
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  /* WORKFLOW CARDS */
+  .workflows {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .workflow-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .workflow-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .workflow-card:hover {
+    border-color: rgba(0,229,160,0.2);
+    background: rgba(0,229,160,0.03);
+  }
+
+  .workflow-card:hover::before { opacity: 1; }
+
+  .workflow-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .workflow-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .workflow-badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-live { background: rgba(0,229,160,0.12); color: var(--accent); border: 1px solid rgba(0,229,160,0.25); }
+  .badge-ai { background: rgba(120,80,255,0.12); color: #a78bfa; border: 1px solid rgba(120,80,255,0.25); }
+
+  .workflow-desc {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .workflow-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.78rem;
+  }
+
+  .flow-step {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .flow-arrow { color: var(--gray); font-size: 0.7rem; }
+
+  /* STACK */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .stack-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .stack-item:hover { border-color: rgba(0,229,160,0.25); }
+
+  .stack-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stack-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+
+  .stack-role {
+    font-size: 0.72rem;
+    color: var(--gray);
+  }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-box::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(0,229,160,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .contact-box p {
+    color: var(--gray);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-email {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,229,160,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .contact-email:hover { border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gray);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero-sub { animation-delay: 0.3s; }
+  .hero-cta { animation-delay: 0.4s; }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .contact-box { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">NU<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Available for projects</div>
+    <h1>
+      <span class="name">Nnamdi Uzoewulu</span>
+      <span class="title">GTM Engineer</span>
+    </h1>
+    <p class="hero-sub">
+      I build <strong>revenue automation systems</strong> that connect your GTM stack — eliminating manual work, enriching leads automatically, and getting the right data to the right people instantly.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-secondary">Work with me</a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">3+</div>
+      <div class="stat-label">Workflows built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">0</div>
+      <div class="stat-label">Manual data entry</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">AI</div>
+      <div class="stat-label">Powered pipelines</div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">GTM automation workflows</h2>
+    <p class="section-sub">End-to-end pipelines built with n8n, Apollo, HubSpot, and Claude AI.</p>
+
+    <div class="workflows">
+
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="workflow-title">AI-Powered Lead Enrichment Pipeline</div>
+          <span class="workflow-badge badge-ai">AI-powered</span>
+        </div>
+        <p class="workflow-desc">
+          Receives an inbound email, enriches the contact via Apollo (name, title, company, LinkedIn), qualifies by company size using an IF filter, auto-creates a contact in HubSpot, and sends the team a Slack alert with an AI-written personalised outreach email — all in under 10 seconds.
+        </p>
+        <div class="workflow-flow">
+          <span class="flow-step">Webhook</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Apollo API</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">IF filter (50+ employees)</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Claude AI</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">HubSpot</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Slack alert</span>
+        </div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="workflow-title">Inbound Lead Notification System</div>
+          <span class="workflow-badge badge-live">Live</span>
+        </div>
+        <p class="workflow-desc">
+          Captures form submissions via webhook, instantly notifies the sales team on Slack with full lead details. Zero manual monitoring required — every inbound lead is surfaced in real time.
+        </p>
+        <div class="workflow-flow">
+          <span class="flow-step">Webhook</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Data extraction</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Slack notification</span>
+        </div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-header">
+          <div class="workflow-title">Apollo Contact Enrichment API</div>
+          <span class="workflow-badge badge-live">Live</span>
+        </div>
+        <p class="workflow-desc">
+          Takes any email address and returns a full contact profile — job title, company, LinkedIn URL, company size, and industry — by calling the Apollo API directly. Foundation for any lead scoring or routing workflow.
+        </p>
+        <div class="workflow-flow">
+          <span class="flow-step">Email input</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Apollo API</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">Enriched contact data</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <p class="section-label">Tools</p>
+    <h2 class="section-title">GTM tech stack</h2>
+    <p class="section-sub">The tools I use to build and ship revenue automation systems.</p>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-icon">⚡</div>
+        <div class="stack-name">n8n</div>
+        <div class="stack-role">Workflow automation</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🔍</div>
+        <div class="stack-name">Apollo.io</div>
+        <div class="stack-role">Lead enrichment</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🟠</div>
+        <div class="stack-name">HubSpot</div>
+        <div class="stack-role">CRM automation</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🤖</div>
+        <div class="stack-name">Claude AI</div>
+        <div class="stack-role">AI-powered copy</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">💬</div>
+        <div class="stack-name">Slack</div>
+        <div class="stack-role">Team alerts</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🔗</div>
+        <div class="stack-name">Webhooks</div>
+        <div class="stack-role">API integrations</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Let's build something</h2>
+      <p>Have a GTM process that's slowing your team down? I'll automate it. Reach out and let's talk.</p>
+      <a href="https://www.linkedin.com/in/nnamdiuzoewulu" target="_blank" class="contact-email">linkedin.com/in/nnamdiuzoewulu →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    © 2026 Nnamdi Uzoewulu · GTM Engineer
+  </div>
+</footer>
+
+</body>
+</html>
